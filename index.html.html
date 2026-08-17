@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ROYALTY ARK 服务器赞助中心</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI', "Microsoft YaHei", sans-serif;}
+        html{scroll-behavior: smooth;}
+        :root{
+            --bg:#0a0e17;
+            --card:#121826;
+            --accent:#00a8ff;
+            --gold:#ffc83d;
+            --purple:#9d4edd;
+            --text:#e6edf3;
+            --muted:#8b98a9;
+            --border:#1f2937;
+        }
+        body{background-color:var(--bg);color:var(--text);line-height:1.6;padding-bottom:60px;}
+        .container{max-width:1400px;margin:0 auto;padding:0 16px;}
+
+        /* 头部 */
+        header{text-align:center;padding:60px 20px 40px;}
+        header h1{font-size:2.8rem;margin-bottom:12px;background:linear-gradient(90deg,#00a8ff,#9d4edd);-webkit-background-clip:text;color:transparent;}
+        header p{color:var(--muted);font-size:1.1rem;max-width:700px;margin:0 auto 24px;}
+        .nav-links{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;}
+        .btn-link{padding:10px 24px;background:linear-gradient(90deg,#00a8ff,#0066ff);color:white;border-radius:8px;text-decoration:none;font-weight:500;transition:.2s;}
+        .btn-link:hover{transform:translateY(-2px);opacity:0.9;}
+
+        /* 区块通用 */
+        section{margin:70px 0;}
+        section h2{text-align:center;font-size:2rem;margin-bottom:40px;position:relative;}
+        section h2 small{display:block;font-size:1rem;color:var(--muted);font-weight:normal;margin-top:8px;}
+
+        /* 等级卡片网格 */
+        .rank-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;}
+        .rank-card{background:var(--card);border-radius:12px;padding:28px 22px;border:1px solid var(--border);transition:0.3s ease;display:flex;flex-direction:column;}
+        .rank-card:hover{transform:translateY(-6px);border-color:var(--accent);box-shadow:0 10px 30px rgba(0,168,255,0.15);}
+        .rank-card.free{border-color:#2d3748;}
+        .rank-card.vip{border-color:#00a8ff;}
+        .rank-card.mvp{border-color:#9d4edd;}
+        .rank-card.svip{border-color:var(--gold);box-shadow:0 0 20px rgba(255,200,61,0.1);}
+        .rank-card.svip:hover{box-shadow:0 10px 30px rgba(255,200,61,0.2);}
+
+        .rank-title{font-size:1.6rem;font-weight:bold;margin-bottom:6px;}
+        .game-title{font-size:0.9rem;color:var(--muted);margin-bottom:16px;}
+        .price-row{display:flex;gap:12px;margin-bottom:16px;flex-wrap:wrap;}
+        .price-item{flex:1;min-width:80px;padding:8px;background:#0f1520;border-radius:6px;text-align:center;}
+        .price-item .label{font-size:0.75rem;color:var(--muted);}
+        .price-item .value{font-size:1.2rem;font-weight:bold;color:var(--gold);}
+        .price-item.free .value{color:#4ade80;}
+
+        .income{margin:12px 0;padding:10px;background:#0f1520;border-radius:6px;font-size:0.9rem;}
+        .income div{display:flex;justify-content:space-between;margin:4px 0;}
+        .income span:last-child{color:var(--accent);font-weight:500;}
+
+        .rank-card ul{list-style:none;margin:16px 0 24px;flex-grow:1;}
+        .rank-card li{padding:5px 0;font-size:0.9rem;color:var(--text);padding-left:16px;position:relative;}
+        .rank-card li::before{content:"• ";color:var(--accent);position:absolute;left:0;}
+
+        .card-buttons{display:flex;gap:8px;flex-wrap:wrap;}
+        .btn-buy{flex:1;padding:9px 12px;background:linear-gradient(90deg,#00a8ff,#0066ff);color:#fff;border:none;border-radius:6px;text-decoration:none;font-size:0.9rem;text-align:center;transition:.2s;}
+        .btn-buy:hover{opacity:0.85;transform:translateY(-1px);}
+        .btn-buy.gold{background:linear-gradient(90deg,#ffc83d,#ff9500);color:#1a1a1a;}
+
+        /* 金币兑换区 */
+        .exchange-box{max-width:900px;margin:0 auto;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:36px;text-align:center;}
+        .exchange-box h3{font-size:1.5rem;margin-bottom:20px;}
+        .exchange-rate{font-size:2.2rem;font-weight:bold;color:var(--gold);margin:10px 0 20px;}
+        .exchange-tip{color:var(--muted);font-size:1rem;}
+
+        /* 底部说明 */
+        .notice{text-align:center;margin-top:30px;color:var(--muted);font-size:1rem;}
+        .notice strong{color:var(--gold);font-size:1.1rem;}
+
+        /* 联系区 */
+        .contact-block{margin-top:80px;}
+        .contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;max-width:600px;margin:30px auto 0;}
+        .contact-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:28px;text-align:center;}
+        .contact-card h3{margin-bottom:10px;}
+        .contact-card p{color:var(--muted);margin-bottom:18px;}
+
+        footer{text-align:center;color:var(--muted);font-size:0.9rem;margin-top:80px;padding-top:20px;border-top:1px solid var(--border);}
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>RA ARK 服务器赞助中心</h1>
+            <p>支持服务器运营，解锁专属游戏权益与丰厚金币奖励</p>
+            <div class="nav-links">
+                <a href="#ranks" class="btn-link">查看赞助等级</a>
+                <a href="#exchange" class="btn-link">金币赞助</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <section id="ranks">
+            <h2>赞助等级<small>多档权益，按需选择，档卡可叠加升级永久卡</small></h2>
+            <div class="rank-grid">
+                <!-- Default -->
+                <div class="rank-card free">
+                    <div class="rank-title">Default</div>
+                    <div class="game-title">游戏称号：Default</div>
+                    <div class="price-row">
+                        <div class="price-item free">
+                            <div class="label">档卡</div>
+                            <div class="value">免费</div>
+                        </div>
+                        <div class="price-item free">
+                            <div class="label">永久</div>
+                            <div class="value">免费</div>
+                        </div>
+                    </div>
+                    <div class="income">
+                        <div><span>金币挂机/30分钟</span><span>100金币</span></div>
+                        <div><span>打卡/30分钟</span><span>0-100金币</span></div>
+                    </div>
+                    <ul>
+                        <li>无额外赞助权益</li>
+                    </ul>
+                    <div class="card-buttons">
+                        <a href="#" class="btn-buy" style="background:#4b5563;">默认权益</a>
+                    </div>
+                </div>
+
+                <!-- KOOK -->
+                <div class="rank-card free">
+                    <div class="rank-title">KOOK</div>
+                    <div class="game-title">游戏称号：KOOK</div>
+                    <div class="price-row">
+                        <div class="price-item free">
+                            <div class="label">档卡</div>
+                            <div class="value">免费</div>
+                        </div>
+                        <div class="price-item free">
+                            <div class="label">永久</div>
+                            <div class="value">免费</div>
+                        </div>
+                    </div>
+                    <div class="income">
+                        <div><span>金币挂机/30分钟</span><span>125金币</span></div>
+                        <div><span>打卡/30分钟</span><span>50-100金币</span></div>
+                    </div>
+                    <ul>
+                        <li>无额外赞助权益</li>
+                    </ul>
+                    <div class="card-buttons">
+                        <a href="#" class="btn-buy" style="background:#4b5563;">加入QQ群领取</a>
+                    </div>
+                </div>
+
+                <!-- DRVIP -->
+                <div class="rank-card vip">
+                    <div class="rank-title">DRVIP</div>
+                    <div class="game-title">游戏称号：DRVIP</div>
+                    <div class="price-row">
+                        <div class="price-item">
+                            <div class="label">档卡</div>
+                            <div class="value">¥19</div>
+                        </div>
+                        <div class="price-item">
+                            <div class="label">永久</div>
+                            <div class="value">¥99</div>
+                        </div>
+                    </div>
+                    <div class="income">
+                        <div><span>金币挂机/30分钟</span><span>175金币</span></div>
+                        <div><span>打卡/30分钟</span><span>100-150金币</span></div>
+                    </div>
+                    <ul>
+                        <li>2000金币礼包</li>
+                        <li>更好的PVP礼包</li>
+                        <li>加子弹范围45地基</li>
+                        <li>游戏内DRVIP称号</li>
+                    </ul>
+                    <div class="card-buttons">
+                        <a href="https://qm.qq.com/q/6gKsZaDX2g" class="btn-buy">立即赞助</a>
+                    </div>
+                </div>
+
+                <!-- VIP -->
+                <div class="rank-card vip">
+                    <div class="rank-title">VIP</div>
+                    <div class="game-title">游戏称号：VIP</div>
+                    <div class="price-row">
+                        <div class="price-item">
+                            <div class="label">档卡</div>
+                            <div class="value">¥29</div>
+                        </div>
+                        <div class="price-item">
+                            <div class="label">永久</div>
+                            <div class="value">¥199</div>
+                        </div>
+                    </div>
+                    <div class="income">
+                        <div><span>金币挂机/30分钟</span><span>300金币</span></div>
+                        <div><span>打卡/30分钟</span><span>100-150金币</span></div>
+                    </div>
+                    <ul>
+                        <li>5000金币礼包</li>
+                        <li>更好的PVP礼包</li>
+                        <li>加子弹范围45地基</li>
+                        <li>游戏内VIP称号</li>
+                    </ul>
+                    <div class="card-buttons">
+                        <a href="https://qm.qq.com/q/6gKsZaDX2g" class="btn-buy">立即赞助</a>
+                    </div>
+                </div>
+
+                <!-- MVP -->
+                <div class="rank-card mvp">
+                    <div class="rank-title">MVP</div>
+                    <div class="game-title">游戏称号：MVP</div>
+                    <div class="price-row">
+                        <div class="price-item">
+                            <div class="label">档卡</div>
+                            <div class="value">¥59</div>
+                        </div>
+                        <div class="price-item">
+                            <div class="label">永久</div>
+                            <div class="value">¥399</div>
+                        </div>
+                    </div>
+                    <div class="income">
+                        <div><span>金币挂机/30分钟</span><span>450金币</span></div>
+                        <div><span>打卡/30分钟</span><span>150-200金币</span></div>
+                    </div>
+                    <ul>
+                        <li>10000金币礼包</li>
+                        <li>更好的PVP礼包</li>
+                        <li>加子弹范围50地基</li>
+                        <li>免费450南巨礼包</li>
+                        <li>游戏内MVP称号</li>
+                        <li>自选一张蓝图</li>
+                    </ul>
+                    <div class="card-buttons">
+                        <a href="https://qm.qq.com/q/6gKsZaDX2g" class="btn-buy">立即赞助</a>
+                    </div>
+                </div>
+
+                <!-- MVP+ -->
+                <div class="rank-card mvp">
+                    <div class="rank-title">MVP+</div>
+                    <div class="game-title">游戏称号：MVP+</div>
+                    <div class="price-row">
+                        <div class="price-item">
+                            <div class="label">档卡</div>
+                            <div class="value">¥89</div>
+                        </div>
+                        <div class="price-item">
+                            <div class="label">永久</div>
+                            <div class="value">¥699</div>
+                        </div>
+                    </div>
+                    <div class="income">
+                        <div><span>金币挂机/30分钟</span><span>600金币</span></div>
+                        <div><span>打卡/30分钟</span><span>200-250金币</span></div>
+                    </div>
+                    <ul>
+                        <li>15000金币礼包</li>
+                        <li>更好的PVP礼包</li>
+                        <li>加子弹范围55地基</li>
+                        <li>免费450南巨礼包</li>
+                        <li>自定义文字称号</li>
+                        <li>游戏内MVP+称号</li>
+                        <li>自选二张蓝图</li>
+                    </ul>
+                    <div class="card-buttons">
+                        <a href="https://qm.qq.com/q/6gKsZaDX2g" class="btn-buy">立即赞助</a>
+                    </div>
+                </div>
+
+                <!-- SVIP -->
+                <div class="rank-card svip">
+                    <div class="rank-title" style="color:var(--gold);">SVIP</div>
+                    <div class="game-title">游戏称号：SVIP</div>
+                    <div class="price-row">
+                        <div class="price-item">
+                            <div class="label">档卡</div>
+                            <div class="value">¥159</div>
+                        </div>
+                        <div class="price-item">
+                            <div class="label">永久</div>
+                            <div class="value">¥1299</div>
+                        </div>
+                    </div>
+                    <div class="income">
+                        <div><span>金币挂机/30分钟</span><span>1000金币</span></div>
+                        <div><span>打卡/30分钟</span><span>300-400金币</span></div>
+                    </div>
+                    <ul>
+                        <li>30000金币礼包</li>
+                        <li>更好的PVP礼包</li>
+                        <li>加子弹范围80地基</li>
+                        <li>免费450南巨礼包</li>
+                        <li>自定义文字称号</li>
+                        <li>游戏内SVIP称号</li>
+                        <li>自选三张蓝图</li>
+                        <li>一套铁甲图纸</li>
+                        <li>一个500级机甲</li>
+                    </ul>
+                    <div class="card-buttons">
+                        <a href="https://qm.qq.com/q/6gKsZaDX2g" class="btn-buy gold">立即赞助</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="exchange">
+            <div class="exchange-box">
+                <h3>金币赞助</h3>
+                <div class="exchange-rate">10 ¥ = 10000 金币</div>
+                <p class="exchange-tip">可直接充值兑换金币，用于游戏内商店购买各类道具与服务</p>
+            </div>
+            <div class="notice">
+                <strong>档卡可叠加升级永久卡</strong>，已购档卡金额可抵扣对应永久卡差价
+            </div>
+        </section>
+
+        <section class="contact-block">
+            <h2>联系我们<small>赞助前如有疑问，可先咨询客服</small></h2>
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <h3>QQ 社区</h3>
+                    <p>加入服务器官方QQ社区</p>
+                    <a href="https://qm.qq.com/q/6gKsZaDX2g" class="btn-link">加入频道</a>
+                </div>
+                <div class="contact-card">
+                    <h3>客服咨询</h3>
+                    <p>赞助与售后问题处理</p>
+                    <a href="https://qm.qq.com/q/6gKsZaDX2g" class="btn-link">联系客服</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>RA ARK服务器赞助中心 | 所有赞助仅用于服务器运营维护</p>
+        </div>
+    </footer>
+</body>
+</html>
